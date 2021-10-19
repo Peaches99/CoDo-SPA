@@ -15,10 +15,9 @@ Contributors:
 * Puuuul
 
 Requirements:
-* Android SDK
-* Flutter SDK
-* Virtual Studio with plugins
+* Android SDK  
+* Flutter SDK 
+* Visual Studio with plugins
     - Windows Universal Platform
     - .NET desktop development
     - Desktop development with C++
-    - Mobile development with .NET

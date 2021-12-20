@@ -28,13 +28,14 @@ class Bitlog extends StatelessWidget {
           backgroundColor: Colors.white,
           appBar: AppBar(
             backgroundColor: Colors.blue,
-            toolbarHeight: 20,
+            toolbarHeight: 30,
             title: const Text(
               'Bitlog - Devbuild',
-              style: TextStyle(fontSize: 15),
+              style: TextStyle(fontSize: 20),
             ),
           ),
-          body: Row(
+          body: ListView(
+            scrollDirection: Axis.horizontal,
             children: const [
               Drawer(
                 backgroundColor: Colors.lightBlue,

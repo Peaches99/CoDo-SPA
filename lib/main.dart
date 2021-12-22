@@ -38,7 +38,6 @@ class Bitlog extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             children: const [
               Drawer(
-                backgroundColor: Colors.lightBlue,
                 child: FlutterLogo(),
               )
             ],

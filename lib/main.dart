@@ -1,39 +1,27 @@
 import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
+import 'package:hive/hive.dart';
+import 'dart:html' as html;
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() => runApp(const Bitlog());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+
+  runApp(const Bitlog());
+}
 
 class Bitlog extends StatelessWidget {
   const Bitlog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(title: "Bitlog - Devbuild", home: TestPage()
-        /*Scaffold(
-          backgroundColor: Colors.blueGrey,
-          appBar: AppBar(
-            backgroundColor: Colors.blue,
-            toolbarHeight: 30,
-            title: const Text(
-              'Bitlog - Devbuild',
-              style: TextStyle(fontSize: 20),
-            ),
-          ),
-          body: ListView(
-            scrollDirection: Axis.horizontal,
-            children: const [
-              Drawer(
-                child: FlutterLogo(),
-              )
-            ],
-          )),*/
-        );
+    return const MaterialApp(
+        title: "Bitlog - Devbuild",
+        home: TestPage(),
+        debugShowCheckedModeBanner: false);
   }
 }
 
@@ -47,6 +35,8 @@ class TestPage extends StatefulWidget {
 class _TestPageState extends State<TestPage> {
   String url = 'http://localhost:8080/#/test';
   List _items = [];
+  String project = "";
+  var box = Hive.openBox('Bitbox');
 
   Future<String> pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -55,27 +45,23 @@ class _TestPageState extends State<TestPage> {
     );
     if (result != null) {
       if (result.files.single.bytes != null) {
-        var file = String.fromCharCodes(result.files.single.bytes!);
-        return file;
+        var byteString = String.fromCharCodes(result.files.single.bytes!);
+        return byteString;
       }
     }
     return "";
   }
 
-  Future sendJson(String str) async {
-    var response = await http.post(Uri.parse(url),
-        body: json.encode(str),
-        headers: {
-          "content-type": "application/json",
-          "accept": "application/json"
-        }).then((http.Response response) {
-      final int statusCode = response.statusCode;
+  Future<void> load() async {
+    var jsonString = await pickFile();
 
-      if (statusCode < 200 || statusCode > 400) {
-        throw Exception("Error while fetching JSON " + statusCode.toString());
-      }
-      return json.decode(response.body);
-    });
+    if (jsonString.isNotEmpty) {
+      var json = jsonDecode(jsonString);
+
+      var box = Hive.box('bitbox');
+      await box.put('Data', json);
+      html.window.location.reload();
+    }
   }
 
   @override
@@ -86,10 +72,17 @@ class _TestPageState extends State<TestPage> {
   }
 
   Future<void> readJson(String file) async {
-    final String response = await rootBundle.loadString(file);
-    final data = await json.decode(response);
+    //final String response = await rootBundle.loadString(file);
+    //final data2 = await json.decode(response);
+
+    var box = await Hive.openBox('bitbox');
+    final data = box.get('Data');
+
     setState(() {
-      _items = data["Features"];
+      if (data != null) {
+        _items = data["Features"];
+        project = " - " + data["Project"] + " v" + data["Version"];
+      }
     });
   }
 
@@ -98,14 +91,14 @@ class _TestPageState extends State<TestPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("BitLog - Dev Build"),
+        title: Text("BitLog (Dev Build)" + project),
       ),
       body: Padding(
           padding: const EdgeInsets.all(25),
           child: Column(
             children: [
               ElevatedButton(
-                  onPressed: () async => sendJson(await pickFile()),
+                  onPressed: () async => load(),
                   child: const Text("Upload JSON")),
               _items.isNotEmpty
                   ? Expanded(
@@ -123,11 +116,8 @@ class _TestPageState extends State<TestPage> {
                               child: Card(
                                 margin: const EdgeInsets.all(10),
                                 child: ListTile(
-                                  leading: Text(item.name),
-                                  title: Text(item.description),
-                                  subtitle: Text(item
-                                      .scenarios[item.scenarios.length - 1]
-                                      .name),
+                                  title: Text(item.name),
+                                  subtitle: Text(item.description),
                                 ),
                               ));
                         },
@@ -145,12 +135,16 @@ class InspectPage extends StatelessWidget {
 
   final FeatureItem featureItem;
 
+  static TextStyle heading() {
+    return const TextStyle(fontSize: 30);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text(featureItem.name)),
         body: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(5),
             child: Column(children: [
               Text(featureItem.description),
               featureItem.scenarios.isNotEmpty
@@ -165,13 +159,32 @@ class InspectPage extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    ListTile(title: Text(scenario.name)),
-                                    Text("Given: " + scenario.syntax.given,
-                                        textAlign: TextAlign.left),
-                                    Text("When: " + scenario.syntax.when,
-                                        textAlign: TextAlign.left),
-                                    Text("Then: " + scenario.syntax.then,
-                                        textAlign: TextAlign.left)
+                                    Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 10, top: 10),
+                                        child: Text(
+                                          scenario.name,
+                                          style: heading(),
+                                        )),
+                                    Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                  "Given: " +
+                                                      scenario.syntax.given,
+                                                  textAlign: TextAlign.left),
+                                              Text(
+                                                  "When: " +
+                                                      scenario.syntax.when,
+                                                  textAlign: TextAlign.left),
+                                              Text(
+                                                  "Then: " +
+                                                      scenario.syntax.then,
+                                                  textAlign: TextAlign.left)
+                                            ]))
                                   ],
                                 ));
                           }),

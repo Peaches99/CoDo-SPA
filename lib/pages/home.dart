@@ -56,8 +56,8 @@ class Home extends State<TestPage> {
 
     setState(() {
       if (data != null) {
-        // _items = data["Features:"];
-        // project = " - " + data["Project"] + " v" + data["Version"];
+        _items = data["Features"];
+        project = " - " + data["Project"] + " v" + data["Version"];
       }
     });
   }

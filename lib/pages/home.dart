@@ -10,7 +10,7 @@ import '../main.dart';
 import '../util/items.dart';
 import 'inspect.dart';
 
-class Home extends State<TestPage> {
+class Home extends State<MainPage> {
   String url = 'http://localhost:8080/#/test';
   List _items = [];
   String project = "";

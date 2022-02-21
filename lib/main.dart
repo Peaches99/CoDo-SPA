@@ -22,13 +22,13 @@ class Bitlog extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
         title: "Bitlog - Devbuild",
-        home: TestPage(),
+        home: MainPage(),
         debugShowCheckedModeBanner: false);
   }
 }
 
-class TestPage extends StatefulWidget {
-  const TestPage({Key? key}) : super(key: key);
+class MainPage extends StatefulWidget {
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   Home createState() => Home();

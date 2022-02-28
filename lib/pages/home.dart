@@ -40,7 +40,6 @@ class Home extends State<MainPage> {
 
       var box = Hive.box(boxName);
       await box.put('Data', json);
-      html.window.location.reload();
       readJson();
     }
   }

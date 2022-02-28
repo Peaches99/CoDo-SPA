@@ -84,8 +84,12 @@ class Home extends State<MainPage> {
               color: const Color(0xff3338ae),
               child: Padding(
                 padding: const EdgeInsets.all(25),
-                child: Column(children: [
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Flexible(
                         child: Container(
@@ -97,7 +101,7 @@ class Home extends State<MainPage> {
                           ),
                             child: Padding(
                               padding: const EdgeInsets.all(10),
-                              child: Text(project,
+                              child: Text(_items.isNotEmpty ? project : "Upload a project to view.",
                                   textAlign: TextAlign.left,
                                   style: const TextStyle(fontSize: 25, color: Colors.white)),
                             )),
@@ -105,6 +109,7 @@ class Home extends State<MainPage> {
                     ],
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Align(
                         child: Padding(

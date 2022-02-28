@@ -10,7 +10,16 @@ class FeatureItem {
     json["Scenarios"].forEach((scen) {
       scens.add(ScenarioItem.fromJson(scen));
     });
-    return FeatureItem(json['FeatureName'], json['Description'], scens);
+    return FeatureItem(json['Feature'], json['Description'], scens);
+  }
+
+  @override
+  String toString() {
+    String scenarioString = "";
+    for (ScenarioItem s in scenarios) {
+      scenarioString += s.toString();
+    }
+    return "Name: $name, Desc: $description\nScens:\n$scenarioString";
   }
 }
 
@@ -23,6 +32,11 @@ class ScenarioItem {
   factory ScenarioItem.fromJson(Map json) {
     return ScenarioItem(json["Scenario"], SyntaxItem.fromJson(json["Syntax"]));
   }
+
+  @override
+  String toString() {
+    return "Scenario name: $name, Syntax: $syntax\n";
+  }
 }
 
 class SyntaxItem {
@@ -34,5 +48,10 @@ class SyntaxItem {
 
   factory SyntaxItem.fromJson(Map json) {
     return SyntaxItem(json["Given"], json["When"], json["Then"]);
+  }
+
+  @override
+  String toString() {
+    return "$given, $when, $then";
   }
 }

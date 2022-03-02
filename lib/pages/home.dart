@@ -13,7 +13,7 @@ import 'inspect.dart';
 class Home extends State<MainPage> {
   String url = 'http://localhost:8080/#/test';
   List _items = [];
-  String project = "";
+  String projectName = "";
   String boxName = "Bitbox";
   final openItem = ValueNotifier<FeatureItem>(FeatureItem("", "", []));
 
@@ -39,7 +39,15 @@ class Home extends State<MainPage> {
       var json = jsonDecode(jsonString);
 
       var box = Hive.box(boxName);
-      await box.put('Data', json);
+      if(box.get('Data') != null){
+        var project = box.get('Data');
+        project["Features"] += json["Features"];
+        await box.put('Data', project);
+      }
+      else{
+        await box.put('Data', json);
+      }
+      
       readJson();
     }
   }
@@ -52,12 +60,12 @@ class Home extends State<MainPage> {
 
   Future<void> readJson() async {
     var box = await Hive.openBox(boxName);
-    final data = await box.get('Data');
+    final project = await box.get('Data');
 
     setState(() {
-      if (data != null) {
-        _items = data["Features"];
-        project = data["Project"];
+      if (project != null) {
+        _items = project["Features"];
+        projectName = project["Project"];
       }
     });
   }
@@ -70,10 +78,6 @@ class Home extends State<MainPage> {
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      /*appBar: AppBar(
-        centerTitle: true,
-        title: Text("BitLog (Dev Build)" + project),
-      ),*/
       body: Row(children: [
         Column(
           children: [
@@ -100,7 +104,7 @@ class Home extends State<MainPage> {
                           ),
                             child: Padding(
                               padding: const EdgeInsets.all(10),
-                              child: Text(_items.isNotEmpty ? project : "Upload a project to view.",
+                              child: Text(_items.isNotEmpty ? projectName : "Upload a project to view.",
                                   textAlign: TextAlign.left,
                                   style: const TextStyle(fontSize: 25, color: Colors.white)),
                             )),

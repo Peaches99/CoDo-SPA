@@ -1,40 +1,56 @@
 {
+  "Project": "com.ind:bitlog-plugin",
+  "Version": "1.0.0-SNAPSHOT",
   "Features": [
     {
-      "Description": "This is a description",
+      "Description": "This feature tests the correct extraction of feature files ",
       "Scenarios": [
         {
           "Syntax": {
-            "When": "Something happens",
-            "Given": "Everything is in place",
-            "Then": "Something else should happen"
+            "When": "When I execute the plugin ",
+            "Given": "Given there are 3 feature files in the test\/resources\/features directory ",
+            "Then": "Then They should be included in the execution "
           },
-          "Scenario": "Scenario 1"
+          "Scenario": "Feature files are used in plugin execution "
         },
         {
           "Syntax": {
-            "When": "Something happens",
-            "Given": "Everything is in place",
-            "Then": "Something else should happen"
+            "When": "When I execute the plugin ",
+            "Given": "Given 3 feature files are included in the plugin execution ",
+            "Then": "Then They should be converted into JSON-Format and printed into a file "
           },
-          "Scenario": "Scenario 2"
+          "Scenario": "A Project has several features "
         }
       ],
-      "FeatureName": "Feature1"
+      "Feature": "Test Extraction "
     },
     {
-      "Description": "Then They should be converted",
+      "Description": "This method does XYZ ",
       "Scenarios": [
         {
           "Syntax": {
-            "When": "I execute",
-            "Given": "there are feature files",
-            "Then": "They should be converted"
+            "When": "When I execute ",
+            "Given": "Given there are feature files ",
+            "Then": "Then They should be converted "
           },
-          "Scenario": "This method does XYZ222"
+          "Scenario": "This method does XYZ "
         }
       ],
-      "FeatureName": "Feature2"
+      "Feature": "Does this work? "
+    },
+    {
+      "Description": "This is not a working feature, this is promotional material. Please download bitlog! ",
+      "Scenarios": [
+        {
+          "Syntax": {
+            "When": "When You use Bitlog ",
+            "Given": "Given You have a project that is hard to read ",
+            "Then": "Then Your customers are 70% more likely to understand what your project is about "
+          },
+          "Scenario": "Bitlog is Cool "
+        }
+      ],
+      "Feature": "Bitlog Promotion "
     }
   ]
 }

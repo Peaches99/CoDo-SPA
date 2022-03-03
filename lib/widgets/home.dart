@@ -75,6 +75,8 @@ class Home extends State<MainPage> {
   Widget build(BuildContext context) {
     Hive.openBox(boxName);
 
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
+
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
@@ -86,7 +88,7 @@ class Home extends State<MainPage> {
               child: Container(
                 width: width * 0.2,
                 height: height,
-                color: Colors.indigo,
+                color: colorScheme.primary,
                 child: Padding(
                   padding: const EdgeInsets.all(25),
                   child: Column(
@@ -124,7 +126,7 @@ class Home extends State<MainPage> {
                                         decoration: BoxDecoration(
                                             border: Border.all(
                                               width: 1,
-                                              color: Colors.black,
+                                              color: colorScheme.tertiary,
                                             ),
                                             borderRadius:
                                                 const BorderRadius.all(
@@ -138,7 +140,7 @@ class Home extends State<MainPage> {
                                               textAlign: TextAlign.left,
                                               style: const TextStyle(
                                                   fontSize: 25,
-                                                  color: Colors.white)),
+                                                  )),
                                         )),
                                   ),
                           ],
@@ -154,9 +156,9 @@ class Home extends State<MainPage> {
                                           (Set<MaterialState> states) {
                                     if (states
                                         .contains(MaterialState.pressed)) {
-                                      return Colors.indigoAccent;
+                                      return colorScheme.tertiary;
                                     }
-                                    return Colors.blueAccent;
+                                    return colorScheme.secondary;
                                   })),
                                   onPressed: () async => load(),
                                   child: const Text("Upload JSON")),
@@ -174,10 +176,12 @@ class Home extends State<MainPage> {
             child: Container(
               width: width * 0.3,
               height: height,
-              decoration: const BoxDecoration(
-                  color: Color(0xFFF2F2F2),
+              decoration: BoxDecoration(
+                  color: colorScheme.secondary,
                   border: Border(
-                      right: BorderSide(width: 5, color: Color(0xFFe2e2e2)))),
+                      right: BorderSide(width: 5,
+                          color: colorScheme.tertiary
+                      ))),
               child: ListView.builder(
                 itemCount: _items.length,
                 itemBuilder: (context, index) {
@@ -190,6 +194,7 @@ class Home extends State<MainPage> {
                         debugPrint(openItem.value.toString());
                       },
                       child: Card(
+                        color: colorScheme.tertiary,
                         margin: const EdgeInsets.all(10),
                         child: ListTile(
                           title: Text(item.name),

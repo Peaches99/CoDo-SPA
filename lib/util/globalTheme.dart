@@ -1,4 +1,3 @@
-//TODO: Puuuul mach colour scheme
 import 'package:flutter/material.dart';
 
 class GlobalTheme {
@@ -13,7 +12,7 @@ class GlobalTheme {
         error: Colors.red,
         onPrimary: Colors.white,
         onBackground: Colors.white,
-        onError: Colors.black,
+        onError: Colors.white,
         onSecondary: Colors.white,
         onSurface: Colors.white,
         surface: Color(0xffC0E0DE)

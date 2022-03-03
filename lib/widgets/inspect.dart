@@ -25,56 +25,61 @@ class InspectPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Padding(
-        padding: const EdgeInsets.all(20),
-        child: Text(featureItem.value.name, style: const TextStyle(fontSize: 40)),
-      ),
-      Padding(
-        padding: const EdgeInsets.all(10),
-        child: Text(featureItem.value.description, style: const TextStyle(fontSize: 20)),
-      ),
-      featureItem.value.scenarios.isNotEmpty
-          ? Expanded(
-              child: ListView.builder(
-                  itemCount: featureItem.value.scenarios.length,
-                  itemBuilder: (context, index) {
-                    ScenarioItem scenario =
-                        featureItem.value.scenarios[index];
-                    return Card(
-                        color: Color(0xF5F8F8F8),
-                        margin: const EdgeInsets.all(18),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 10, top: 10),
-                                child: Text(
-                                  scenario.name,
-                                  style: heading(),
-                                )),
-                            Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                          scenario.syntax.given,
-                                          textAlign: TextAlign.left, style: syntax(),),
-                                      Text(
-                                          scenario.syntax.when,
-                                          textAlign: TextAlign.left, style: syntax(),),
-                                      Text(
-                                          scenario.syntax.then,
-                                          textAlign: TextAlign.left, style: syntax(),)
-                                    ]))
-                          ],
-                        ));
-                  }),
-            )
-          : Container()
-    ]);
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
+
+    return Container(
+      color: colorScheme.secondary,
+      child: Column(children: [
+        Padding(
+          padding: const EdgeInsets.all(20),
+          child: Text(featureItem.value.name, style: const TextStyle(fontSize: 40)),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(10),
+          child: Text(featureItem.value.description, style: const TextStyle(fontSize: 20)),
+        ),
+        featureItem.value.scenarios.isNotEmpty
+            ? Expanded(
+                child: ListView.builder(
+                    itemCount: featureItem.value.scenarios.length,
+                    itemBuilder: (context, index) {
+                      ScenarioItem scenario =
+                          featureItem.value.scenarios[index];
+                      return Card(
+                            color: colorScheme.secondary,
+                          margin: const EdgeInsets.all(18),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, top: 10),
+                                  child: Text(
+                                    scenario.name,
+                                    style: heading(),
+                                  )),
+                              Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            scenario.syntax.given,
+                                            textAlign: TextAlign.left, style: syntax(),),
+                                        Text(
+                                            scenario.syntax.when,
+                                            textAlign: TextAlign.left, style: syntax(),),
+                                        Text(
+                                            scenario.syntax.then,
+                                            textAlign: TextAlign.left, style: syntax(),)
+                                      ]))
+                            ],
+                          ));
+                    }),
+              )
+            : Container()
+      ]),
+    );
   }
 }

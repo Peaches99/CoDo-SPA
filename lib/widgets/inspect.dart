@@ -16,11 +16,11 @@ class InspectPage extends StatelessWidget {
   final ValueListenable<FeatureItem> featureItem;
 
   static TextStyle heading() {
-    return const TextStyle(fontSize: 20, fontFamily: "SofiaProSoft");
+    return const TextStyle(fontSize: 20, fontFamily: "Sofia Pro");
   }
 
   static TextStyle syntax() {
-    return const TextStyle(fontSize: 16, height: 1.5, fontFamily: "SofiaProSoft");
+    return const TextStyle(fontSize: 16, height: 1.5, fontFamily: "Sofia Pro");
   }
 
   @override

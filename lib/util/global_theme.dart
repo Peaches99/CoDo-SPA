@@ -20,7 +20,7 @@ class GlobalTheme {
       ),
         textTheme: const TextTheme(
           bodyText1: TextStyle(
-            fontFamily: 'SofiaProSoft'
+            fontFamily: 'Sofia Pro'
         )
       )
     );

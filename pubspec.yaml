@@ -95,7 +95,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-fonts:
-  - family: Sofia Pro
-    fonts:
-      - asset:
+  fonts:
+    - family: SofiaPro
+      fonts:
+        - asset: assets/fonts/sofiapro-light.otf

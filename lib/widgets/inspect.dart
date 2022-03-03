@@ -15,18 +15,14 @@ class InspectPage extends StatelessWidget {
 
   final ValueListenable<FeatureItem> featureItem;
 
-  static TextStyle heading() {
-    return const TextStyle(fontSize: 20, fontFamily: "Sofia Pro");
-  }
-
-  static TextStyle syntax() {
-    return const TextStyle(fontSize: 16, height: 1.5, fontFamily: "Sofia Pro");
-  }
-
   @override
   Widget build(BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
+
     String? font = Theme.of(context).textTheme.bodyText1?.fontFamily;
+    TextStyle? heading = Theme.of(context).textTheme.headlineSmall;
+    TextStyle? syntax = Theme.of(context).textTheme.bodySmall;
+
     return Container(
       color: colorScheme.surface,
       child: Column(children: [
@@ -60,7 +56,7 @@ class InspectPage extends StatelessWidget {
                                       left: 10, top: 10),
                                   child: Text(
                                     scenario.name,
-                                    style: heading(),
+                                    style: heading,
                                   )),
                               Padding(
                                   padding: const EdgeInsets.all(10),
@@ -70,13 +66,13 @@ class InspectPage extends StatelessWidget {
                                       children: [
                                         Text(
                                             scenario.syntax.given,
-                                            textAlign: TextAlign.left, style: syntax(),),
+                                            textAlign: TextAlign.left, style: syntax,),
                                         Text(
                                             scenario.syntax.when,
-                                            textAlign: TextAlign.left, style: syntax(),),
+                                            textAlign: TextAlign.left, style: syntax,),
                                         Text(
                                             scenario.syntax.then,
-                                            textAlign: TextAlign.left, style: syntax(),)
+                                            textAlign: TextAlign.left, style: syntax,)
                                       ]))
                             ],
                           ));

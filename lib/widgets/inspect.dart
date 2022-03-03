@@ -16,27 +16,27 @@ class InspectPage extends StatelessWidget {
   final ValueListenable<FeatureItem> featureItem;
 
   static TextStyle heading() {
-    return const TextStyle(fontSize: 20);
+    return const TextStyle(fontSize: 20, fontFamily: "SofiaProSoft");
   }
 
   static TextStyle syntax() {
-    return const TextStyle(fontSize: 16, height: 1.5);
+    return const TextStyle(fontSize: 16, height: 1.5, fontFamily: "SofiaProSoft");
   }
 
   @override
   Widget build(BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
-
+    String? font = Theme.of(context).textTheme.bodyText1?.fontFamily;
     return Container(
       color: colorScheme.surface,
       child: Column(children: [
         Padding(
           padding: const EdgeInsets.all(20),
-          child: Text(featureItem.value.name, style: TextStyle(fontSize: 40, color: colorScheme.primary)),
+          child: Text(featureItem.value.name, style: TextStyle(fontSize: 40, color: colorScheme.primary, fontFamily: font)),
         ),
         Padding(
           padding: const EdgeInsets.all(10),
-          child: Text(featureItem.value.description, style: const TextStyle(fontSize: 20)),
+          child: Text(featureItem.value.description, style: TextStyle(fontSize: 20, fontFamily: font)),
         ),
         featureItem.value.scenarios.isNotEmpty
             ? Expanded(

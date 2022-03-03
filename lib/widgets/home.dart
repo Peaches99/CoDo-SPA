@@ -76,6 +76,7 @@ class Home extends State<MainPage> {
     Hive.openBox(boxName);
 
     ColorScheme colorScheme = Theme.of(context).colorScheme;
+    String? font = Theme.of(context).textTheme.bodyText1?.fontFamily;
 
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
@@ -114,14 +115,13 @@ class Home extends State<MainPage> {
                                       itemBuilder: (context, index) {
                                         return GestureDetector(
                                             onTap: () {
-                                              debugPrint("Hi!");
                                               loadProject(projectKeys[index]);
                                             },
                                             child: Card(
                                               margin: const EdgeInsets.all(10),
                                               child: ListTile(
                                                   title:
-                                                      Text(projectKeys[index])),
+                                                      Text(projectKeys[index], style: TextStyle(fontFamily: font))),
                                             ));
                                       }),
                                 )
@@ -143,6 +143,7 @@ class Home extends State<MainPage> {
                                                   : "Upload a project to view.",
                                               textAlign: TextAlign.left,
                                               style: TextStyle(
+                                                  fontFamily: font,
                                                   fontSize: 25,
                                                   color: colorScheme.onPrimary
                                                   )),
@@ -166,7 +167,7 @@ class Home extends State<MainPage> {
                                     return colorScheme.secondary;
                                   })),
                                   onPressed: () async => load(),
-                                  child: const Text("Upload JSON")),
+                                  child: Text("Upload JSON", style: TextStyle(fontFamily: font))),
                             ),
                           ],
                         )
@@ -202,8 +203,8 @@ class Home extends State<MainPage> {
                         color: colorScheme.secondaryVariant,
                         margin: const EdgeInsets.all(10),
                         child: ListTile(
-                          title: Text(item.name),
-                          subtitle: Text(item.description),
+                          title: Text(item.name, style: TextStyle(fontFamily: font)),
+                          subtitle: Text(item.description, style: TextStyle(fontFamily: font)),
                         ),
                       ));
                 },

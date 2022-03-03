@@ -17,6 +17,11 @@ class GlobalTheme {
         onSecondary: Colors.white,
         onSurface: Colors.white,
         surface: Color(0xffffffff)
+      ),
+        textTheme: const TextTheme(
+          bodyText1: TextStyle(
+            fontFamily: 'SofiaProSoft'
+        )
       )
     );
   }

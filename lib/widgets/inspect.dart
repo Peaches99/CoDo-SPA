@@ -28,11 +28,11 @@ class InspectPage extends StatelessWidget {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     return Container(
-      color: colorScheme.secondary,
+      color: colorScheme.surface,
       child: Column(children: [
         Padding(
           padding: const EdgeInsets.all(20),
-          child: Text(featureItem.value.name, style: const TextStyle(fontSize: 40)),
+          child: Text(featureItem.value.name, style: TextStyle(fontSize: 40, color: colorScheme.primary)),
         ),
         Padding(
           padding: const EdgeInsets.all(10),
@@ -46,7 +46,11 @@ class InspectPage extends StatelessWidget {
                       ScenarioItem scenario =
                           featureItem.value.scenarios[index];
                       return Card(
-                            color: colorScheme.secondary,
+                            color: colorScheme.secondaryVariant,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(color: colorScheme.secondary, width: 1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           margin: const EdgeInsets.all(18),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

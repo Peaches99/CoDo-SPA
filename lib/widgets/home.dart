@@ -94,10 +94,14 @@ class Home extends State<MainPage> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        ListTile(
-                          leading: Text("Current:"),
-                          title: Text(projectName)
-                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                        child: Row(
+                            children:[
+                            Image.asset("assets/Bitlog_LogoV2.png", fit: BoxFit.contain, width: 40),
+                            Image.asset("assets/walter_logo.jpg", fit: BoxFit.contain, width: 180),
+                          ]
+                        )),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -126,7 +130,7 @@ class Home extends State<MainPage> {
                                         decoration: BoxDecoration(
                                             border: Border.all(
                                               width: 1,
-                                              color: colorScheme.tertiary,
+                                              color: colorScheme.secondaryVariant,
                                             ),
                                             borderRadius:
                                                 const BorderRadius.all(
@@ -138,8 +142,9 @@ class Home extends State<MainPage> {
                                                   ? projectName
                                                   : "Upload a project to view.",
                                               textAlign: TextAlign.left,
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                   fontSize: 25,
+                                                  color: colorScheme.onPrimary
                                                   )),
                                         )),
                                   ),
@@ -156,7 +161,7 @@ class Home extends State<MainPage> {
                                           (Set<MaterialState> states) {
                                     if (states
                                         .contains(MaterialState.pressed)) {
-                                      return colorScheme.tertiary;
+                                      return colorScheme.secondaryVariant;
                                     }
                                     return colorScheme.secondary;
                                   })),
@@ -177,10 +182,10 @@ class Home extends State<MainPage> {
               width: width * 0.3,
               height: height,
               decoration: BoxDecoration(
-                  color: colorScheme.secondary,
+                  color: colorScheme.background,
                   border: Border(
                       right: BorderSide(width: 5,
-                          color: colorScheme.tertiary
+                          color: colorScheme.secondaryVariant
                       ))),
               child: ListView.builder(
                 itemCount: _items.length,
@@ -194,7 +199,7 @@ class Home extends State<MainPage> {
                         debugPrint(openItem.value.toString());
                       },
                       child: Card(
-                        color: colorScheme.tertiary,
+                        color: colorScheme.secondaryVariant,
                         margin: const EdgeInsets.all(10),
                         child: ListTile(
                           title: Text(item.name),

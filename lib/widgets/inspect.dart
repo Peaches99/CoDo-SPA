@@ -42,7 +42,7 @@ class InspectPage extends StatelessWidget {
                     ScenarioItem scenario =
                         featureItem.value.scenarios[index];
                     return Card(
-                        color: Colors.white70,
+                        color: Color(0xF5F8F8F8),
                         margin: const EdgeInsets.all(18),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

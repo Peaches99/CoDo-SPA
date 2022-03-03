@@ -6,7 +6,7 @@ import 'package:hive/hive.dart';
 import 'dart:html' as html;
 import 'package:hive_flutter/hive_flutter.dart';
 import 'util/items.dart';
-import 'pages/home.dart';
+import 'widgets/home.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

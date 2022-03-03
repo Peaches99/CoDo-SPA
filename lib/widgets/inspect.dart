@@ -20,8 +20,8 @@ class InspectPage extends StatelessWidget {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     String? font = Theme.of(context).textTheme.bodyText1?.fontFamily;
-    TextStyle? heading = Theme.of(context).textTheme.headlineSmall;
-    TextStyle? syntax = Theme.of(context).textTheme.bodySmall;
+    TextStyle? heading = Theme.of(context).textTheme.headline1;
+    TextStyle? syntax = Theme.of(context).textTheme.bodyText2;
 
     return Container(
       color: colorScheme.surface,

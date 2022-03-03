@@ -18,15 +18,15 @@ class GlobalTheme {
         onSurface: Colors.white,
         surface: Color(0xffffffff)
       ),
-        textTheme: TextTheme(
-          bodyText1: const TextStyle(
+        textTheme: const TextTheme(
+          bodyText1: TextStyle(
             fontFamily: 'SofiaPro'
           ),
-          headlineSmall: const TextStyle(
+          headline1: TextStyle(
               fontSize: 20,
               fontFamily: "Sofia Pro"
           ),
-          bodySmall: const TextStyle(
+          bodyText2: TextStyle(
               fontSize: 16,
               height: 1.5,
               fontFamily: "Sofia Pro"

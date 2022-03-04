@@ -57,6 +57,8 @@ dev_dependencies:
 flutter:
   assets:
     - assets/sample.json
+    - assets/walter_logo.jpg
+    - assets/Bitlog_LogoV2.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -93,3 +95,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: SofiaPro
+      fonts:
+        - asset: assets/fonts/sofiapro-light.otf

@@ -75,6 +75,9 @@ class Home extends State<MainPage> {
   Widget build(BuildContext context) {
     Hive.openBox(boxName);
 
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
+    String? font = Theme.of(context).textTheme.bodyText1?.fontFamily;
+
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
@@ -86,15 +89,25 @@ class Home extends State<MainPage> {
               child: Container(
                 width: width * 0.2,
                 height: height,
-                color: Colors.indigo,
+                color: colorScheme.primary,
                 child: Padding(
                   padding: const EdgeInsets.all(25),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        ListTile(
-                          leading: Text("Current:"),
-                          title: Text(projectName)
+                         Row(
+                            children:[
+                            Image.asset("assets/Bitlog_LogoV2.png", fit: BoxFit.contain, width: 40),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child:
+                            Text(
+                              "BitLog",
+                              style: TextStyle(
+                                  fontSize: 50,
+                                  color: colorScheme.onPrimary
+                              )))
+                          ]
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -108,14 +121,14 @@ class Home extends State<MainPage> {
                                       itemBuilder: (context, index) {
                                         return GestureDetector(
                                             onTap: () {
-                                              debugPrint("Hi!");
                                               loadProject(projectKeys[index]);
                                             },
                                             child: Card(
                                               margin: const EdgeInsets.all(10),
+                                              color: (projectKeys[index] == projectName) ? colorScheme.tertiary : colorScheme.background,
                                               child: ListTile(
                                                   title:
-                                                      Text(projectKeys[index])),
+                                                      Text(projectKeys[index], style: TextStyle(fontFamily: font))),
                                             ));
                                       }),
                                 )
@@ -124,7 +137,7 @@ class Home extends State<MainPage> {
                                         decoration: BoxDecoration(
                                             border: Border.all(
                                               width: 1,
-                                              color: Colors.black,
+                                              color: colorScheme.background,
                                             ),
                                             borderRadius:
                                                 const BorderRadius.all(
@@ -136,9 +149,11 @@ class Home extends State<MainPage> {
                                                   ? projectName
                                                   : "Upload a project to view.",
                                               textAlign: TextAlign.left,
-                                              style: const TextStyle(
+                                              style: TextStyle(
+                                                  fontFamily: font,
                                                   fontSize: 25,
-                                                  color: Colors.white)),
+                                                  color: colorScheme.onPrimary
+                                                  )),
                                         )),
                                   ),
                           ],
@@ -154,12 +169,12 @@ class Home extends State<MainPage> {
                                           (Set<MaterialState> states) {
                                     if (states
                                         .contains(MaterialState.pressed)) {
-                                      return Colors.indigoAccent;
+                                      return colorScheme.background;
                                     }
-                                    return Colors.blueAccent;
+                                    return colorScheme.secondary;
                                   })),
                                   onPressed: () async => load(),
-                                  child: const Text("Upload JSON")),
+                                  child: Text("Upload JSON", style: TextStyle(fontFamily: font))),
                             ),
                           ],
                         )
@@ -174,10 +189,12 @@ class Home extends State<MainPage> {
             child: Container(
               width: width * 0.3,
               height: height,
-              decoration: const BoxDecoration(
-                  color: Color(0xFFF2F2F2),
+              decoration: BoxDecoration(
+                  color: colorScheme.background,
                   border: Border(
-                      right: BorderSide(width: 5, color: Color(0xFFe2e2e2)))),
+                      right: BorderSide(width: 5,
+                          color: colorScheme.background
+                      ))),
               child: ListView.builder(
                 itemCount: _items.length,
                 itemBuilder: (context, index) {
@@ -190,10 +207,16 @@ class Home extends State<MainPage> {
                         debugPrint(openItem.value.toString());
                       },
                       child: Card(
+                        color: colorScheme.surface,
+                        key: Key(item.name),
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(color: (item.name == openItem.value.name) ? colorScheme.primary: colorScheme.background, width: 1),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                         margin: const EdgeInsets.all(10),
                         child: ListTile(
-                          title: Text(item.name),
-                          subtitle: Text(item.description),
+                          title: Text(item.name, style: TextStyle(fontFamily: font)),
+                          subtitle: Text(item.description, style: TextStyle(fontFamily: font)),
                         ),
                       ));
                 },

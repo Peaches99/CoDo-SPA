@@ -95,43 +95,45 @@ class Home extends State<MainPage> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                         Row(
-                            children:[
-                            Image.asset("assets/Bitlog_LogoV2.png", fit: BoxFit.contain, width: 40),
-                            Padding(
+                        Row(children: [
+                          Image.asset("assets/Bitlog_LogoV2.png",
+                              fit: BoxFit.contain, width: 40),
+                          Padding(
                               padding: const EdgeInsets.only(left: 20),
-                              child:
-                            Text(
-                              "BitLog",
-                              style: TextStyle(
-                                  fontSize: 50,
-                                  color: colorScheme.onPrimary
-                              )))
-                          ]
-                        ),
+                              child: Text("BitLog",
+                                  style: TextStyle(
+                                      fontSize: 50,
+                                      color: colorScheme.onPrimary)))
+                        ]),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             projectKeys.isNotEmpty
                                 ? Expanded(
-                                  child: ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: projectKeys.length,
-                                      itemBuilder: (context, index) {
-                                        return GestureDetector(
-                                            onTap: () {
-                                              loadProject(projectKeys[index]);
-                                            },
-                                            child: Card(
-                                              margin: const EdgeInsets.all(10),
-                                              color: (projectKeys[index] == projectName) ? colorScheme.tertiary : colorScheme.background,
-                                              child: ListTile(
-                                                  title:
-                                                      Text(projectKeys[index], style: TextStyle(fontFamily: font))),
-                                            ));
-                                      }),
-                                )
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: projectKeys.length,
+                                        itemBuilder: (context, index) {
+                                          return GestureDetector(
+                                              onTap: () {
+                                                loadProject(projectKeys[index]);
+                                              },
+                                              child: Card(
+                                                margin:
+                                                    const EdgeInsets.all(10),
+                                                color: (projectKeys[index] ==
+                                                        projectName)
+                                                    ? colorScheme.tertiary
+                                                    : colorScheme.background,
+                                                child: ListTile(
+                                                    title: Text(
+                                                        projectKeys[index],
+                                                        style: TextStyle(
+                                                            fontFamily: font))),
+                                              ));
+                                        }),
+                                  )
                                 : Flexible(
                                     child: Container(
                                         decoration: BoxDecoration(
@@ -152,8 +154,8 @@ class Home extends State<MainPage> {
                                               style: TextStyle(
                                                   fontFamily: font,
                                                   fontSize: 25,
-                                                  color: colorScheme.onPrimary
-                                                  )),
+                                                  color:
+                                                      colorScheme.onPrimary)),
                                         )),
                                   ),
                           ],
@@ -174,7 +176,8 @@ class Home extends State<MainPage> {
                                     return colorScheme.secondary;
                                   })),
                                   onPressed: () async => load(),
-                                  child: Text("Upload JSON", style: TextStyle(fontFamily: font))),
+                                  child: Text("Upload JSON",
+                                      style: TextStyle(fontFamily: font))),
                             ),
                           ],
                         )
@@ -192,9 +195,8 @@ class Home extends State<MainPage> {
               decoration: BoxDecoration(
                   color: colorScheme.background,
                   border: Border(
-                      right: BorderSide(width: 5,
-                          color: colorScheme.background
-                      ))),
+                      right:
+                          BorderSide(width: 5, color: colorScheme.background))),
               child: ListView.builder(
                 itemCount: _items.length,
                 itemBuilder: (context, index) {
@@ -210,13 +212,19 @@ class Home extends State<MainPage> {
                         color: colorScheme.surface,
                         key: Key(item.name),
                         shape: RoundedRectangleBorder(
-                          side: BorderSide(color: (item.name == openItem.value.name) ? colorScheme.primary: colorScheme.background, width: 1),
+                          side: BorderSide(
+                              color: (item.name == openItem.value.name)
+                                  ? colorScheme.primary
+                                  : colorScheme.background,
+                              width: 1),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         margin: const EdgeInsets.all(10),
                         child: ListTile(
-                          title: Text(item.name, style: TextStyle(fontFamily: font)),
-                          subtitle: Text(item.description, style: TextStyle(fontFamily: font)),
+                          title: Text(item.name,
+                              style: TextStyle(fontFamily: font)),
+                          subtitle: Text(item.description,
+                              style: TextStyle(fontFamily: font)),
                         ),
                       ));
                 },

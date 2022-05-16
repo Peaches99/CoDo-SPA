@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bitlog/util/global_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:file_picker/file_picker.dart';
@@ -20,9 +21,10 @@ class Bitlog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
         title: "Bitlog - Devbuild",
-        home: MainPage(),
+        theme: GlobalTheme.bitlogTheme(),
+        home: const MainPage(),
         debugShowCheckedModeBanner: false);
   }
 }

@@ -23,12 +23,12 @@ class GlobalTheme {
           ),
           headline1: TextStyle(
               fontSize: 20,
-              fontFamily: "Sofia Pro"
+              fontFamily: "SofiaPro"
           ),
           bodyText2: TextStyle(
               fontSize: 16,
               height: 1.5,
-              fontFamily: "Sofia Pro"
+              fontFamily: "SofiaPro"
           )
         )
     );

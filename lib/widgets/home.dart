@@ -13,7 +13,7 @@ import '../util/items.dart';
 import 'inspect.dart';
 
 class Home extends State<MainPage> {
-  String url = 'http://localhost:8080/#/test';
+  String url = 'http://localhost:8070/';
   List _items = []; // feature items of currently open project
   String projectName = ''; // name of currently open project
   List projectKeys = [];
@@ -38,6 +38,21 @@ class Home extends State<MainPage> {
   // Load the uploaded json file into the box
   Future<void> load() async {
     var jsonString = await pickFile();
+
+    if (jsonString.isNotEmpty) {
+      var json = jsonDecode(jsonString);
+
+      var box = Hive.box(boxName);
+
+      await box.put(json['Project'], json['Features']);
+
+      loadProject(json['Project']);
+    }
+  }
+
+  // load a file from a local mongoDB database on http://127.0.0.1:8070/
+  Future<void> loadFromMongo() async {
+    var jsonString = await html.HttpRequest.getString(url);
 
     if (jsonString.isNotEmpty) {
       var json = jsonDecode(jsonString);
@@ -95,16 +110,14 @@ class Home extends State<MainPage> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Row(children: [
-                          Image.asset("assets/Bitlog_LogoV2.png",
-                              fit: BoxFit.contain, width: 40),
-                          Padding(
-                              padding: const EdgeInsets.only(left: 20),
-                              child: Text("BitLog",
-                                  style: TextStyle(
-                                      fontSize: 50,
-                                      color: colorScheme.onPrimary)))
-                        ]),
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                        child: Row(
+                            children:[
+                            Image.asset("assets/Bitlog_LogoV2.png", fit: BoxFit.contain, width: 40),
+                            Image.asset("assets/walter_logo.jpg", fit: BoxFit.contain, width: 180),
+                          ]
+                        )),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -154,8 +167,8 @@ class Home extends State<MainPage> {
                                               style: TextStyle(
                                                   fontFamily: font,
                                                   fontSize: 25,
-                                                  color:
-                                                      colorScheme.onPrimary)),
+                                                  color: colorScheme.onPrimary
+                                                  )),
                                         )),
                                   ),
                           ],
@@ -176,8 +189,10 @@ class Home extends State<MainPage> {
                                     return colorScheme.secondary;
                                   })),
                                   onPressed: () async => load(),
-                                  child: Text("Upload JSON",
-                                      style: TextStyle(fontFamily: font))),
+                                  child: Text(
+                                      "Upload JSON",
+                                      style: TextStyle(fontFamily: font
+                                      ))),
                             ),
                           ],
                         )
@@ -196,7 +211,8 @@ class Home extends State<MainPage> {
                   color: colorScheme.background,
                   border: Border(
                       right:
-                          BorderSide(width: 5, color: colorScheme.background))),
+                          BorderSide(width: 5, color: colorScheme.background
+                          ))),
               child: ListView.builder(
                 itemCount: _items.length,
                 itemBuilder: (context, index) {

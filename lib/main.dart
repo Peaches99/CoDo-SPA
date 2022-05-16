@@ -22,7 +22,7 @@ class Bitlog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: "Bitlog - Devbuild",
+        title: "Bitlog",
         theme: GlobalTheme.bitlogTheme(),
         home: const MainPage(),
         debugShowCheckedModeBanner: false);

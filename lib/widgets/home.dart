@@ -68,7 +68,7 @@ class Home extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((_) => loadProjectKeys());
+    WidgetsBinding.instance.addPostFrameCallback((_) => loadProjectKeys());
   }
 
   Future<void> loadProjectKeys() async {
@@ -114,8 +114,20 @@ class Home extends State<MainPage> {
                           padding: const EdgeInsets.all(10),
                         child: Row(
                             children:[
-                            Image.asset("assets/Bitlog_LogoV2.png", fit: BoxFit.contain, width: 40),
-                            Image.asset("assets/walter_logo.jpg", fit: BoxFit.contain, width: 180),
+                              Flexible(
+                                flex: 1,
+                                fit: FlexFit.loose,
+                                child: Image.asset(
+                                      "assets/Bitlog_LogoV2.png", fit: BoxFit.scaleDown, width: 40
+                                ),
+                              ),
+                              Flexible(
+                                flex: 1,
+                                fit: FlexFit.tight,
+                                child: Image.asset(
+                                    "assets/walter_logo.jpg", fit: BoxFit.fill, width: 250
+                                ),
+                              ),
                           ]
                         )),
                         Row(
@@ -176,23 +188,27 @@ class Home extends State<MainPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: ElevatedButton(
-                                  style: ButtonStyle(backgroundColor:
-                                      MaterialStateProperty.resolveWith<Color?>(
-                                          (Set<MaterialState> states) {
-                                    if (states
-                                        .contains(MaterialState.pressed)) {
-                                      return colorScheme.background;
-                                    }
-                                    return colorScheme.secondary;
-                                  })),
-                                  onPressed: () async => load(),
-                                  child: Text(
-                                      "Upload JSON",
-                                      style: TextStyle(fontFamily: font
-                                      ))),
+                            Flexible(
+                              flex: 1,
+                              fit: FlexFit.loose,
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: ElevatedButton(
+                                    style: ButtonStyle(backgroundColor:
+                                        MaterialStateProperty.resolveWith<Color?>(
+                                            (Set<MaterialState> states) {
+                                      if (states
+                                          .contains(MaterialState.pressed)) {
+                                        return colorScheme.background;
+                                      }
+                                      return colorScheme.secondary;
+                                    })),
+                                    onPressed: () async => load(),
+                                    child: Text(
+                                        "Upload JSON",
+                                        style: TextStyle(fontFamily: font
+                                        ))),
+                              ),
                             ),
                           ],
                         )

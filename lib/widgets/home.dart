@@ -145,7 +145,7 @@ class Home extends State<MainPage> {
                                         decoration: BoxDecoration(
                                             border: Border.all(
                                               width: 1,
-                                              color: colorScheme.secondaryVariant,
+                                              color: colorScheme.tertiary,
                                             ),
                                             borderRadius:
                                                 const BorderRadius.all(
@@ -175,10 +175,10 @@ class Home extends State<MainPage> {
                                   style: ButtonStyle(backgroundColor:
                                       MaterialStateProperty.resolveWith<Color?>(
                                           (Set<MaterialState> states) {
-                                    if (states
-                                        .contains(MaterialState.pressed)) {
-                                      return colorScheme.secondaryVariant;
-                                    }
+                                     if (states
+                                         .contains(MaterialState.pressed)) {
+                                       return colorScheme.tertiary;
+                                     }
                                     return colorScheme.secondary;
                                   })),
                                   onPressed: () async => load(),
@@ -201,7 +201,7 @@ class Home extends State<MainPage> {
                   color: colorScheme.background,
                   border: Border(
                       right: BorderSide(width: 5,
-                          color: colorScheme.secondaryVariant
+                          color: colorScheme.tertiary
                       ))),
               child: ListView.builder(
                 itemCount: _items.length,
@@ -215,7 +215,7 @@ class Home extends State<MainPage> {
                         debugPrint(openItem.value.toString());
                       },
                       child: Card(
-                        color: colorScheme.secondaryVariant,
+                        color: colorScheme.tertiary,
                         margin: const EdgeInsets.all(10),
                         child: ListTile(
                           title: Text(item.name, style: TextStyle(fontFamily: font)),

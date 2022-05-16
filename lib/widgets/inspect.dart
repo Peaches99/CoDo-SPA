@@ -42,7 +42,7 @@ class InspectPage extends StatelessWidget {
                       ScenarioItem scenario =
                           featureItem.value.scenarios[index];
                       return Card(
-                            color: colorScheme.secondaryVariant,
+                            color: colorScheme.tertiary,
                           shape: RoundedRectangleBorder(
                             side: BorderSide(color: colorScheme.secondary, width: 1),
                             borderRadius: BorderRadius.circular(10),

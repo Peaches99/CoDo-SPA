@@ -5,9 +5,8 @@ class GlobalTheme {
     return ThemeData(
       colorScheme: const ColorScheme(
         primary: Color(0xff005aaa),
-        primaryVariant: Color(0xff505050),
         secondary: Color(0xff004789),
-        secondaryVariant: Color(0xffffffff),
+        tertiary: Color(0xffffffff),
         brightness: Brightness.light,
         background: Color(0xfff3f3f3),
         error: Colors.red,
@@ -24,12 +23,12 @@ class GlobalTheme {
           ),
           headline1: TextStyle(
               fontSize: 20,
-              fontFamily: "Sofia Pro"
+              fontFamily: "SofiaPro"
           ),
           bodyText2: TextStyle(
               fontSize: 16,
               height: 1.5,
-              fontFamily: "Sofia Pro"
+              fontFamily: "SofiaPro"
           )
         )
     );

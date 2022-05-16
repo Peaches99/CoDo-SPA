@@ -13,7 +13,7 @@ import '../util/items.dart';
 import 'inspect.dart';
 
 class Home extends State<MainPage> {
-  String url = 'http://localhost:8080/#/test';
+  String url = 'http://localhost:8070/';
   List _items = []; // feature items of currently open project
   String projectName = ''; // name of currently open project
   List projectKeys = [];
@@ -38,6 +38,21 @@ class Home extends State<MainPage> {
   // Load the uploaded json file into the box
   Future<void> load() async {
     var jsonString = await pickFile();
+
+    if (jsonString.isNotEmpty) {
+      var json = jsonDecode(jsonString);
+
+      var box = Hive.box(boxName);
+
+      await box.put(json['Project'], json['Features']);
+
+      loadProject(json['Project']);
+    }
+  }
+
+  // load a file from a local mongoDB database on http://127.0.0.1:8070/
+  Future<void> loadFromMongo() async {
+    var jsonString = await html.HttpRequest.getString(url);
 
     if (jsonString.isNotEmpty) {
       var json = jsonDecode(jsonString);

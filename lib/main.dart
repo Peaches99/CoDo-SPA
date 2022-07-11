@@ -1,12 +1,6 @@
-import 'dart:convert';
 import 'package:bitlog/util/global_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:hive/hive.dart';
-import 'dart:html' as html;
 import 'package:hive_flutter/hive_flutter.dart';
-import 'util/items.dart';
 import 'widgets/home.dart';
 
 Future<void> main() async {

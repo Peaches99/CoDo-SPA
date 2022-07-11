@@ -31,7 +31,6 @@ dependencies:
     sdk: flutter
   json_serializable: ^6.1.1
   http: ^0.13.4
-  file_picker: ^4.3.0
   hive: ^2.0.5
   hive_flutter: ^1.1.0
 
@@ -42,6 +41,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+   
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -58,7 +58,6 @@ flutter:
   assets:
     - assets/sample.json
     - assets/walter_logo.jpg
-    - assets/Bitlog_LogoV2.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

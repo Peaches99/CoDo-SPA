@@ -1,13 +1,5 @@
-import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:hive/hive.dart';
-import 'dart:html' as html;
-import 'package:hive_flutter/hive_flutter.dart';
-
-import '../main.dart';
 import '../util/items.dart';
 
 class InspectPage extends StatelessWidget {
@@ -28,11 +20,14 @@ class InspectPage extends StatelessWidget {
       child: Column(children: [
         Padding(
           padding: const EdgeInsets.all(20),
-          child: Text(featureItem.value.name, style: TextStyle(fontSize: 40, color: colorScheme.primary, fontFamily: font)),
+          child: Text(featureItem.value.name,
+              style: TextStyle(
+                  fontSize: 40, color: colorScheme.primary, fontFamily: font)),
         ),
         Padding(
           padding: const EdgeInsets.all(10),
-          child: Text(featureItem.value.description, style: TextStyle(fontSize: 20, fontFamily: font)),
+          child: Text(featureItem.value.description,
+              style: TextStyle(fontSize: 20, fontFamily: font)),
         ),
         featureItem.value.scenarios.isNotEmpty
             ? Expanded(
@@ -42,9 +37,10 @@ class InspectPage extends StatelessWidget {
                       ScenarioItem scenario =
                           featureItem.value.scenarios[index];
                       return Card(
-                            color: colorScheme.surface,
+                          color: colorScheme.surface,
                           shape: RoundedRectangleBorder(
-                            side: BorderSide(color: colorScheme.primary, width: 1),
+                            side: BorderSide(
+                                color: colorScheme.primary, width: 1),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           margin: const EdgeInsets.all(18),
@@ -52,8 +48,8 @@ class InspectPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, top: 10),
+                                  padding:
+                                      const EdgeInsets.only(left: 10, top: 10),
                                   child: Text(
                                     scenario.name,
                                     style: heading,
@@ -65,14 +61,20 @@ class InspectPage extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                            scenario.syntax.given,
-                                            textAlign: TextAlign.left, style: syntax,),
+                                          scenario.syntax.given,
+                                          textAlign: TextAlign.left,
+                                          style: syntax,
+                                        ),
                                         Text(
-                                            scenario.syntax.when,
-                                            textAlign: TextAlign.left, style: syntax,),
+                                          scenario.syntax.when,
+                                          textAlign: TextAlign.left,
+                                          style: syntax,
+                                        ),
                                         Text(
-                                            scenario.syntax.then,
-                                            textAlign: TextAlign.left, style: syntax,)
+                                          scenario.syntax.then,
+                                          textAlign: TextAlign.left,
+                                          style: syntax,
+                                        )
                                       ]))
                             ],
                           ));

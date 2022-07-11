@@ -1,16 +1,11 @@
-// TODO Implement this library.import 'dart:convert';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:hive/hive.dart';
-import 'dart:html' as html;
 import 'package:hive_flutter/hive_flutter.dart';
-
 import '../main.dart';
 import '../util/items.dart';
 import 'inspect.dart';
+import '../util/api_service.dart' as apis;
 
 class Home extends State<MainPage> {
   String url = 'http://localhost:8070/';
@@ -21,38 +16,9 @@ class Home extends State<MainPage> {
   String boxName = "Bitbox";
   final openItem = ValueNotifier<FeatureItem>(FeatureItem("", "", []));
 
-  Future<String> pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['json'],
-    );
-    if (result != null) {
-      if (result.files.single.bytes != null) {
-        var byteString = String.fromCharCodes(result.files.single.bytes!);
-        return byteString;
-      }
-    }
-    return "";
-  }
-
-  // Load the uploaded json file into the box
   Future<void> load() async {
-    var jsonString = await pickFile();
-
-    if (jsonString.isNotEmpty) {
-      var json = jsonDecode(jsonString);
-
-      var box = Hive.box(boxName);
-
-      await box.put(json['Project'], json['Features']);
-
-      loadProject(json['Project']);
-    }
-  }
-
-  // load a file from a local mongoDB database on http://127.0.0.1:8070/
-  Future<void> loadFromMongo() async {
-    var jsonString = await html.HttpRequest.getString(url);
+    await Hive.openBox(boxName);
+    String jsonString = await apis.ApiService().fakeGetProjects();
 
     if (jsonString.isNotEmpty) {
       var json = jsonDecode(jsonString);
@@ -68,6 +34,7 @@ class Home extends State<MainPage> {
   @override
   void initState() {
     super.initState();
+    load();
     WidgetsBinding.instance.addPostFrameCallback((_) => loadProjectKeys());
   }
 
@@ -111,25 +78,41 @@ class Home extends State<MainPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(10),
-                        child: Row(
-                            children:[
-                              Flexible(
-                                flex: 1,
-                                fit: FlexFit.loose,
-                                child: Image.asset(
-                                      "assets/Bitlog_LogoV2.png", fit: BoxFit.scaleDown, width: 40
-                                ),
-                              ),
+                            padding: const EdgeInsets.all(10),
+                            child: Row(children: [
                               Flexible(
                                 flex: 1,
                                 fit: FlexFit.tight,
-                                child: Image.asset(
-                                    "assets/walter_logo.jpg", fit: BoxFit.fill, width: 250
-                                ),
+                                child: Image.asset("assets/walter_logo.jpg",
+                                    fit: BoxFit.fill, width: 300),
                               ),
-                          ]
-                        )),
+                            ])),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              flex: 1,
+                              fit: FlexFit.loose,
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: ElevatedButton(
+                                    style: ButtonStyle(backgroundColor:
+                                        MaterialStateProperty.resolveWith<
+                                                Color?>(
+                                            (Set<MaterialState> states) {
+                                      if (states
+                                          .contains(MaterialState.pressed)) {
+                                        return colorScheme.background;
+                                      }
+                                      return colorScheme.secondary;
+                                    })),
+                                    onPressed: () async => load(),
+                                    child: Text("Refresh",
+                                        style: TextStyle(fontFamily: font))),
+                              ),
+                            ),
+                          ],
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -174,44 +157,17 @@ class Home extends State<MainPage> {
                                           child: Text(
                                               _items.isNotEmpty
                                                   ? projectName
-                                                  : "Upload a project to view.",
+                                                  : "No Projects",
                                               textAlign: TextAlign.left,
                                               style: TextStyle(
                                                   fontFamily: font,
                                                   fontSize: 25,
-                                                  color: colorScheme.onPrimary
-                                                  )),
+                                                  color:
+                                                      colorScheme.onPrimary)),
                                         )),
                                   ),
                           ],
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Flexible(
-                              flex: 1,
-                              fit: FlexFit.loose,
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: ElevatedButton(
-                                    style: ButtonStyle(backgroundColor:
-                                        MaterialStateProperty.resolveWith<Color?>(
-                                            (Set<MaterialState> states) {
-                                      if (states
-                                          .contains(MaterialState.pressed)) {
-                                        return colorScheme.background;
-                                      }
-                                      return colorScheme.secondary;
-                                    })),
-                                    onPressed: () async => load(),
-                                    child: Text(
-                                        "Upload JSON",
-                                        style: TextStyle(fontFamily: font
-                                        ))),
-                              ),
-                            ),
-                          ],
-                        )
                       ]),
                 ),
               ),
@@ -227,8 +183,7 @@ class Home extends State<MainPage> {
                   color: colorScheme.background,
                   border: Border(
                       right:
-                          BorderSide(width: 5, color: colorScheme.background
-                          ))),
+                          BorderSide(width: 5, color: colorScheme.background))),
               child: ListView.builder(
                 itemCount: _items.length,
                 itemBuilder: (context, index) {
@@ -238,7 +193,6 @@ class Home extends State<MainPage> {
                         setState(() {
                           openItem.value = item;
                         });
-                        debugPrint(openItem.value.toString());
                       },
                       child: Card(
                         color: colorScheme.surface,

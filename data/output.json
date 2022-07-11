@@ -1,0 +1,56 @@
+{
+  "Project": "com.ind:bitlog-plugin",
+  "Version": "1.0.0-SNAPSHOT",
+  "Features": [
+    {
+      "Description": "This feature tests the correct extraction of feature files ",
+      "Scenarios": [
+        {
+          "Syntax": {
+            "When": "When I execute the plugin ",
+            "Given": "Given there are 3 feature files in the test\/resources\/features directory ",
+            "Then": "Then They should be included in the execution "
+          },
+          "Scenario": "Feature files are used in plugin execution "
+        },
+        {
+          "Syntax": {
+            "When": "When I execute the plugin ",
+            "Given": "Given 3 feature files are included in the plugin execution ",
+            "Then": "Then They should be converted into JSON-Format and printed into a file "
+          },
+          "Scenario": "A Project has several features "
+        }
+      ],
+      "Feature": "Test Extraction "
+    },
+    {
+      "Description": "This method does XYZ ",
+      "Scenarios": [
+        {
+          "Syntax": {
+            "When": "When I execute ",
+            "Given": "Given there are feature files ",
+            "Then": "Then They should be converted "
+          },
+          "Scenario": "This method does XYZ "
+        }
+      ],
+      "Feature": "Does this work? "
+    },
+    {
+      "Description": "This is not a working feature, this is promotional material. Please download bitlog! ",
+      "Scenarios": [
+        {
+          "Syntax": {
+            "When": "When You use Bitlog ",
+            "Given": "Given You have a project that is hard to read ",
+            "Then": "Then Your customers are 70% more likely to understand what your project is about "
+          },
+          "Scenario": "Bitlog is Cool "
+        }
+      ],
+      "Feature": "Bitlog Promotion "
+    }
+  ]
+}

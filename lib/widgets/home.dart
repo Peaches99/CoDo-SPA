@@ -18,16 +18,25 @@ class Home extends State<MainPage> {
 
   Future<void> load() async {
     await Hive.openBox(boxName);
-    String jsonString = await apis.ApiService().fakeGetProjects();
+    String jsonString = await apis.ApiService().get();
 
     if (jsonString.isNotEmpty) {
       var json = jsonDecode(jsonString);
-
       var box = Hive.box(boxName);
 
-      await box.put(json['Project'], json['Features']);
+      for (int i = 0; i < json.length; i++) {
+        await box.put(json[i]['Project'], json[i]['Features']);
+        loadProject(json[i]['Project']);
+      }
+    }
+  }
 
-      loadProject(json['Project']);
+  Future<void> testLoad() async {
+    String test = await apis.ApiService().get();
+    if (test.isNotEmpty) {
+      print(test);
+    } else {
+      print("Aso");
     }
   }
 

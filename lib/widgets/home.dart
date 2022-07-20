@@ -83,101 +83,93 @@ class Home extends State<MainPage> {
                 color: colorScheme.primary,
                 child: Padding(
                   padding: const EdgeInsets.all(25),
-                  child: Column(
+                  child: ListView(children: [
+                    Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Row(children: [
+                          Flexible(
+                            flex: 1,
+                            fit: FlexFit.tight,
+                            child: Image.asset("assets/walter_logo.jpg",
+                                fit: BoxFit.fill, width: 300),
+                          ),
+                        ])),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          flex: 1,
+                          fit: FlexFit.loose,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: ElevatedButton(
+                                style: ButtonStyle(backgroundColor:
+                                    MaterialStateProperty.resolveWith<Color?>(
+                                        (Set<MaterialState> states) {
+                                  if (states.contains(MaterialState.pressed)) {
+                                    return colorScheme.background;
+                                  }
+                                  return colorScheme.secondary;
+                                })),
+                                onPressed: () async => load(),
+                                child: Text("Refresh",
+                                    style: TextStyle(fontFamily: font))),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Row(children: [
-                              Flexible(
-                                flex: 1,
-                                fit: FlexFit.tight,
-                                child: Image.asset("assets/walter_logo.jpg",
-                                    fit: BoxFit.fill, width: 300),
+                        projectKeys.isNotEmpty
+                            ? Expanded(
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: projectKeys.length,
+                                    itemBuilder: (context, index) {
+                                      return GestureDetector(
+                                          onTap: () {
+                                            loadProject(projectKeys[index]);
+                                          },
+                                          child: Card(
+                                            margin: const EdgeInsets.all(10),
+                                            color: (projectKeys[index] ==
+                                                    projectName)
+                                                ? colorScheme.tertiary
+                                                : colorScheme.background,
+                                            child: ListTile(
+                                                title: Text(projectKeys[index],
+                                                    style: TextStyle(
+                                                        fontFamily: font))),
+                                          ));
+                                    }),
+                              )
+                            : Flexible(
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                          width: 1,
+                                          color: colorScheme.background,
+                                        ),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(10))),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Text(
+                                          _items.isNotEmpty
+                                              ? projectName
+                                              : "No Projects",
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                              fontFamily: font,
+                                              fontSize: 25,
+                                              color: colorScheme.onPrimary)),
+                                    )),
                               ),
-                            ])),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Flexible(
-                              flex: 1,
-                              fit: FlexFit.loose,
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: ElevatedButton(
-                                    style: ButtonStyle(backgroundColor:
-                                        MaterialStateProperty.resolveWith<
-                                                Color?>(
-                                            (Set<MaterialState> states) {
-                                      if (states
-                                          .contains(MaterialState.pressed)) {
-                                        return colorScheme.background;
-                                      }
-                                      return colorScheme.secondary;
-                                    })),
-                                    onPressed: () async => load(),
-                                    child: Text("Refresh",
-                                        style: TextStyle(fontFamily: font))),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            projectKeys.isNotEmpty
-                                ? Expanded(
-                                    child: ListView.builder(
-                                        shrinkWrap: true,
-                                        itemCount: projectKeys.length,
-                                        itemBuilder: (context, index) {
-                                          return GestureDetector(
-                                              onTap: () {
-                                                loadProject(projectKeys[index]);
-                                              },
-                                              child: Card(
-                                                margin:
-                                                    const EdgeInsets.all(10),
-                                                color: (projectKeys[index] ==
-                                                        projectName)
-                                                    ? colorScheme.tertiary
-                                                    : colorScheme.background,
-                                                child: ListTile(
-                                                    title: Text(
-                                                        projectKeys[index],
-                                                        style: TextStyle(
-                                                            fontFamily: font))),
-                                              ));
-                                        }),
-                                  )
-                                : Flexible(
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                              width: 1,
-                                              color: colorScheme.background,
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(10))),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Text(
-                                              _items.isNotEmpty
-                                                  ? projectName
-                                                  : "No Projects",
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                  fontFamily: font,
-                                                  fontSize: 25,
-                                                  color:
-                                                      colorScheme.onPrimary)),
-                                        )),
-                                  ),
-                          ],
-                        ),
-                      ]),
+                      ],
+                    ),
+                  ]),
                 ),
               ),
             ),

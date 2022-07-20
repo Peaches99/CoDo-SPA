@@ -31,15 +31,6 @@ class Home extends State<MainPage> {
     }
   }
 
-  Future<void> testLoad() async {
-    String test = await apis.ApiService().get();
-    if (test.isNotEmpty) {
-      print(test);
-    } else {
-      print("Aso");
-    }
-  }
-
   @override
   void initState() {
     super.initState();

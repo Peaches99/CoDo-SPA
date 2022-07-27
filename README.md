@@ -1,20 +1,14 @@
 # Bitlog Development Repository
 
-This repository is for the sole use of developing Bitlog.
-
-Bitlog is a Living-Documentation project that will fulfill the following purposes:
-* Automated documentation generation
-* Complete change history
-* Live changes
-
+Bitlog is the front end Spa of the CoDo (Continues Documentation) project
 
 Contributors:
-* Peaches99
-* LaserFox1
-* K1ju02
-* Puuuul
+* Nicolas Safarik
+* Lukas Prantl
+* Kieran Kirchweger
+* Paul Schneider
 
-Requirements:
+Build dependencies:
 * Android SDK  
 * Flutter SDK 
 * Visual Studio with plugins
